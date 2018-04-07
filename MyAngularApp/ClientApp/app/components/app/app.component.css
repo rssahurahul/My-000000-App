@@ -1,0 +1,192 @@
+
+.position-rel {
+    position: relative !important;
+}
+
+.position-abs {
+    position: absolute;
+}
+
+.pointer {
+    cursor: pointer;
+}
+
+/* Margins */
+
+.no-margin {
+    margin: 0px !important;
+}
+
+.no-margin-bottom {
+    margin-bottom: 0px !important;
+}
+
+.no-margin-top {
+    margin-top: -3px !important;
+}
+
+.margin-top-3 {
+    margin-top: 3px;
+}
+
+.margin-left-10 {
+    margin-left: 10px !important;
+}
+
+.margin-left-15 {
+    margin-left: 15px !important;
+}
+
+.margin-left-30 {
+    margin-left: 30px;
+}
+
+.margin-top-15 {
+    margin-top: 15px !important;
+}
+
+.margin-top-10 {
+    margin-top: 10px !important;
+}
+
+.margin-top-8 {
+    margin-top: 8px;
+}
+
+
+.margin-left-5 {
+    margin-left: 5px;
+}
+
+.margin-bottom-10 {
+    margin-bottom: 10px !important;
+}
+
+.margin-bottom-18 {
+    margin-bottom: 18px;
+}
+
+.margin-bottom-15 {
+    margin-bottom: 15px !important;
+}
+
+.margin-bottom-8 {
+    margin-bottom: 8px;
+}
+
+/* Padding */
+.padding-none {
+    padding: 0 !important;
+}
+
+.padding-left-15 {
+    padding-left: 15px;
+}
+
+.padding-right-15 {
+    padding-right: 15px;
+}
+
+.padding-top-5 {
+    padding-top: 5px;
+}
+
+.padding-left-30 {
+    padding-left: 30px;
+}
+
+.padding-left-40 {
+    padding-left: 40px;
+}
+
+.no-padding-left {
+    padding-left: 0px !important;
+}
+
+.padding-right-6 {
+    padding-right: 6px !important;
+}
+
+.padding-right-30 {
+    padding-right: 30px;
+}
+
+.padding-right-40 {
+    padding-right: 40px;
+}
+
+.padding-tb-3 {
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+
+.dashboard-bg {
+    background: #eaeaea;
+}
+
+.navtab-bg {
+    background: #000000;
+}
+
+.bg-primary {
+    background: #3695d5 !important;
+}
+
+.color-white {
+    color: #fff;
+}
+
+.bg-white {
+    background: #fff !important;
+}
+
+.width65 {
+    width: 65px;
+}
+
+.text-black {
+    color: #333;
+}
+
+@media only screen and (orientation:portrait) and (max-width: 479px) {
+    #wrapper {
+        display: none;
+    }
+
+    #warning-message-header {
+        background-color: #fff;
+        height: 50px;
+        float: left;
+        width: 100%;
+    }
+
+    .CAT-title-message {
+        font-size: 15px;
+        margin-left: 10px;
+    }
+
+    .PI-title-message {
+        font-size: 20px;
+        font-weight: 700;
+        font-style: italic;
+        margin-left: 20px;
+    }
+
+    #warning-message {
+        display: block;
+        text-align: center;
+        font-size: 14px;
+        padding-top: 40%;
+        background-color: #eaeaea;
+        height: calc(100vh - 70px);
+        color: #212121;
+    }
+
+    .rotation-icon {
+        width: auto;
+    }
+
+    #warning-message p {
+        margin-top: 10px;
+    }
+}

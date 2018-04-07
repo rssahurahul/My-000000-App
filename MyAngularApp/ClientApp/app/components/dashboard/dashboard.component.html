@@ -1,0 +1,974 @@
+﻿<div class="container-fluid" >
+
+    <div id="content">
+        <div class="container dashboard-bg">
+
+
+            <div class="innerLR">
+                <div class="col-sm-12 col-xs-12 padding-top-5">
+                    <div class="row portfolio-heading">
+                        <div class="col-sm-12 col-xs-12 widget bg-primary innerAll">
+                            <div class="row">
+                                <div class="col-sm-12 col-xs-12">
+
+                                    <div class="portfolio-heading-left">
+                                        <div class="pull-left innerLR margin-top-8 title-bar-text">
+                                            PORTFOLIO: as of <span data-bind="text:PortfolioDate"></span>
+                                        </div>
+                                    </div>
+                                    <div class="portfolio-heading-right">
+                                        <div class="pull-left innerLR margin-top-8 title-bar-text">
+                                            TIL:
+                                        </div>
+                                        <div class="pull-left title-bar-value innerLR" data-bind="text:TotalInsuredLimitFormatted">
+
+                                        </div>
+                                        <div class="pull-left innerLR margin-top-8 title-bar-text">
+                                            Locations:
+                                        </div>
+                                        <div class="pull-left title-bar-value innerLR" data-bind="text: TotalLocationsFormatted">
+
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-6">
+
+                                            <div id="dmgfact-tool-window" class="dmgfact-tool-window">
+                                                <div style="display:none;" id="dmgfactToolCont" class="col-md-12 col-sm-12 col-xs-12 dmgfact-tool-cont">
+                                                    <div class="margin-none border-none innerLR">
+                                                        <div class="margin-top10"><p>Configure estimated loss thresholds.</p></div>
+                                                        <div class="clearfix"></div>
+
+                                                        <div>
+                                                            <div class="col-md-5 ">
+                                                                <div class="col-md-4 thresholdhigh"><h4 class="no-margin">HIGH</h4></div>
+                                                                <div class="col-md-7 thresholdhighbox padding-none"><span class="red_ver"></span><input type="text" data-bind="value:adminToolHighThresholds" style="width:90%; padding-left: 5px" /></div>
+                                                            </div>
+                                                            <div class="col-md-5">
+                                                                <div class="col-md-4 thresholdhigh"><h4 class="no-margin">MED</h4></div>
+                                                                <div class="col-md-7 thresholdhighbox padding-none"><span class="yel_ver"></span><input type="text" data-bind="value:adminToolMedThresholds" style="width:90%; padding-left: 5px" /></div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="clearfix"></div>
+                                                        <br />
+                                                        <div class="margin-top10"><p>Configure peril damage factors.</p></div>
+                                                        <div class="clearfix"></div>
+                                                        <div class="row tabBtncontainer">
+                                                            <div class="parent-tab" data-bind="event:{ click: function(data,event){HandleTabs('SevereWeather',data,event)} },css:{'parent-tab-active':activeTab() === 'SevereWeather'}">
+
+                                                                Severe Weather
+                                                            </div>
+                                                            <div class="parent-tab" data-bind="event:{ click: function(data,event){HandleTabs('Wildfire',data,event)} },css:{'parent-tab-active':activeTab() === 'Wildfire'}">
+
+                                                                Wildfire
+                                                            </div>
+                                                            <div class="parent-tab" data-bind="event:{ click: function(data,event){HandleTabs('Hurricane',data,event)} },css:{'parent-tab-active':activeTab() === 'Hurricane'}">
+
+                                                                Hurricane
+                                                            </div>
+                                                            <div class="parent-tab" data-bind="event:{ click: function(data,event){HandleTabs('Earthquake',data,event)} },css:{'parent-tab-active':activeTab() === 'Earthquake'}">
+
+                                                                Earthquake
+                                                            </div>
+                                                            
+
+                                                        </div>
+                                                        <div class="clearfix"></div>
+
+                                                        <div id="PESevereWeather" data-bind="css:{hidden:activeTab() !== 'SevereWeather'}">
+                                                            <div class="row tabBtncontainer2">
+
+                                                                <div class="child-tab" data-bind="event:{ click: function(data,event){HandleSEVTabs('hail',data,event)} },css:{'child-tab-active':SEVactiveTab() === 'hail'}">
+                                                                    HAIL
+                                                                </div>
+                                                                <div class="child-tab" data-bind="event:{ click: function(data,event){HandleSEVTabs('wind',data,event)} },css:{'child-tab-active':SEVactiveTab() === 'wind'}">
+                                                                    WIND
+                                                                </div>
+                                                                <div class="child-tab" data-bind="event:{ click: function(data,event){HandleSEVTabs('tornado',data,event)} },css:{'child-tab-active':SEVactiveTab() === 'tornado'}">
+                                                                    TORNADO
+                                                                </div>
+
+
+                                                            </div>
+                                                            <div class="clearfix"></div>
+                                                            <div class="panel-group margin-top-8" id="accordion">
+
+
+
+                                                                <div class="table-responsive" data-bind="css:{hidden:SEVactiveTab() !== 'hail'}">
+                                                                    <table>
+                                                                        <tr>
+                                                                            <th style="width: 80px;" class="text-center font12">REPORTS </th>
+                                                                            <th style="width: 85px;" class="text-center font12">SIZE (inch)</th>
+                                                                            <th style="width: 80px;" class="text-center font12">#LOC</th>
+                                                                            <th style="width: 65px;" class="text-center font12">TIL</th>
+                                                                            <th style="width: 100px;" class="text-center font12">EST. LOSS</th>
+                                                                            <th style="width: 150px;" class="text-center font12">DAMAGE FACTORS</th>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="text-center" data-bind="text:Hail_5_Events">0</td>
+                                                                            <td><span class="circle Red"></span> >5"</td>
+                                                                            <td class="text-center" data-bind="text:Hail_5_LocationCount">0</td>
+                                                                            <td class="text-center" data-bind="text:Hail_5_TotlimFormatted">$80m</td>
+                                                                            <td class="text-center"><span data-bind="text:Hail_5_EstLossFormatted,css:Hail_5_alertClass">0</span></td>
+                                                                            <td class="text-center-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Hail_5_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            <td class="text-center padding-tb-3"><input type="text" data-bind="value:Hail_5" class="width65 text-center" /></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="text-center" data-bind="text:Hail_4_Events">0</td>
+                                                                            <td><span class="circle Orange"></span>4"-5"</td>
+                                                                            <td class="text-center" data-bind="text:Hail_4_LocationCount">0</td>
+                                                                            <td class="text-center" data-bind="text:Hail_4_TotlimFormatted">$80m</td>
+                                                                            <td class="text-center"><span data-bind="text:Hail_4_EstLossFormatted,css:Hail_4_alertClass">0</span></td>
+                                                                            <td class="text-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Hail_4_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            <td class="text-center padding-tb-3"><input type="text" data-bind="value:Hail_4" class="width65 text-center" /></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="text-center" data-bind="text:Hail_3_Events">0</td>
+                                                                            <td><span class="circle Yellow"></span>3"-4"</td>
+                                                                            <td class="text-center" data-bind="text:Hail_3_LocationCount">0</td>
+                                                                            <td class="text-center" data-bind="text:Hail_3_TotlimFormatted">$80m</td>
+                                                                            <td class="text-center"><span data-bind="text:Hail_3_EstLossFormatted,css:Hail_3_alertClass">0</span></td>
+                                                                            <td class="text-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Hail_3_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            <td class="text-center padding-tb-3"><input type="text" data-bind="value:Hail_3" class="width65 text-center" /></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="text-center" data-bind="text:Hail_2_Events">0</td>
+                                                                            <td><span class="circle Green"></span>2"-3"</td>
+                                                                            <td class="text-center" data-bind="text:Hail_2_LocationCount">0</td>
+                                                                            <td class="text-center" data-bind="text:Hail_2_TotlimFormatted">$80m</td>
+                                                                            <td class="text-center"><span data-bind="text:Hail_2_EstLossFormatted,css:Hail_2_alertClass"></span></td>
+                                                                            <td class="text-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Hail_2_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            <td class="text-center padding-tb-3"><input type="text" data-bind="value:Hail_2" class="width65 text-center" /></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="text-center" data-bind="text:Hail_1_Events">0</td>
+                                                                            <td><span class="circle Blue"></span> 1"-2" </td>
+                                                                            <td class="text-center" data-bind="text:Hail_1_LocationCount">0</td>
+                                                                            <td class="text-center" data-bind="text:Hail_1_TotlimFormatted">$80m</td>
+                                                                            <td class="text-center"><span data-bind="text:Hail_1_EstLossFormatted,css:Hail_1_alertClass">0</span></td>
+                                                                            <td class="text-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Hail_1_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            <td class="text-center padding-tb-3"><input type="text" data-bind="value:Hail_1" class="width65 text-center" /></td>
+                                                                        </tr>
+
+                                                                    </table>
+
+                                                                </div>
+
+
+
+
+                                                                <div data-bind="css:{hidden:SEVactiveTab() !== 'wind'}">
+                                                                    <table>
+                                                                        <tr>
+                                                                            <th style="width: 80px;" class="text-center font12">REPORTS</th>
+                                                                            <th style="width: 85px;" class="text-center font12">SPEED (mph)</th>
+                                                                            <th style="width: 80px;" class="text-center font12">#LOC</th>
+                                                                            <th style="width: 65px;" class="text-center font12">TIL</th>
+                                                                            <th style="width: 100px;" class="text-center font12">EST. LOSS</th>
+                                                                            <th style="width: 150px;" class="text-center font12">DAMAGE FACTORS</th>
+                                                                        </tr>
+
+                                                                        <tr>
+                                                                            <td class="text-center" data-bind="text:Wind_100_Events">0</td>
+                                                                            <td><span class="circle Red"></span> > 100</td>
+                                                                            <td class="text-center" data-bind="text:Wind_100_LocationCount">0</td>
+                                                                            <td class="text-center" data-bind="text:Wind_100_TotlimFormatted">$80m</td>
+                                                                            <td class="text-center"><span data-bind="text:Wind_100_EstLossFormatted,css:Wind_100_alertClass">0</span></td>
+                                                                            <td class="text-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Wind_100_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            <td class="text-center padding-tb-3"><input type="text" data-bind="value:Wind_100" class="width65 text-center" /></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="text-center" data-bind="text:Wind_75_Events">0</td>
+                                                                            <td><span class="circle Orange"></span>75 - 100</td>
+                                                                            <td class="text-center" data-bind="text:Wind_75_LocationCount">0</td>
+                                                                            <td class="text-center" data-bind="text:Wind_75_TotlimFormatted">$80m</td>
+                                                                            <td class="text-center"><span data-bind="text:Wind_75_EstLossFormatted,css:Wind_75_alertClass">0</span></td>
+                                                                            <td class="text-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Wind_75_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            <td class="text-center padding-tb-3"><input type="text" data-bind="value:Wind_75" class="width65 text-center" /></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="text-center" data-bind="text:Wind_60_Events">0</td>
+                                                                            <td><span class="circle Yellow"></span>60 - 75</td>
+                                                                            <td class="text-center" data-bind="text:Wind_60_LocationCount">0</td>
+                                                                            <td class="text-center" data-bind="text:Wind_60_TotlimFormatted">$80m</td>
+                                                                            <td class="text-center"><span data-bind="text:Wind_60_EstLossFormatted,css:Wind_60_alertClass">0</span></td>
+                                                                            <td class="text-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Wind_60_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            <td class="text-center padding-tb-3"><input type="text" data-bind="value:Wind_60" class="width65 text-center" /></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="text-center" data-bind="text:Wind_50_Events">0</td>
+                                                                            <td><span class="circle Green"></span>50 - 60</td>
+                                                                            <td class="text-center" data-bind="text:Wind_50_LocationCount">0</td>
+                                                                            <td class="text-center" data-bind="text:Wind_50_TotlimFormatted">$80m</td>
+                                                                            <td class="text-center"><span data-bind="text:Wind_50_EstLossFormatted,css:Wind_50_alertClass">0</span></td>
+                                                                            <td class="text-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Wind_50_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            <td class="text-center padding-tb-3"><input type="text" data-bind="value:Wind_50" class="width65 text-center" /></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="text-center" data-bind="text:Wind_0_Events">0</td>
+                                                                            <td><span class="circle Blue"></span> < 50</td>
+                                                                            <td class="text-center" data-bind="text:Wind_0_LocationCount">0</td>
+                                                                            <td class="text-center" data-bind="text:Wind_0_TotlimFormatted">$80m</td>
+                                                                            <td class="text-center"><span data-bind="text:Wind_0_EstLossFormatted,css:Wind_0_alertClass">0</span></td>
+                                                                            <td class="text-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Wind_0_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            <td class="text-center padding-tb-3"><input type="text" data-bind="value:Wind_0" class="width65 text-center" /></td>
+                                                                        </tr>
+
+                                                                    </table>
+                                                                </div>
+
+
+
+
+
+                                                                <div data-bind="css:{hidden:SEVactiveTab() !== 'tornado'}">
+                                                                    <table>
+
+                                                                        <tr>
+                                                                            <th style="width: 80px;" class="text-center font12">REPORTS</th>
+                                                                            <th style="width: 85px;" class="text-center font12">SCALE</th>
+                                                                            <th style="width: 80px;" class="text-center font12">#LOC</th>
+                                                                            <th style="width: 65px;" class="text-center font12">TIL</th>
+                                                                            <th style="width: 100px;" class="text-center font12">EST. LOSS</th>
+                                                                            <th style="width: 150px;" class="text-center font12">DAMAGE FACTORS</th>
+                                                                        </tr>
+
+                                                                        <tr>
+                                                                            <td class="text-center" data-bind="text:TornEvents">0</td>
+                                                                            <td class="text-center"></td>
+                                                                            <td class="text-center" data-bind="text:TornLocationCount">0</td>
+                                                                            <td class="text-center" data-bind="text:TornTotlimFormatted">$80m</td>
+                                                                            <td class="text-center"><span data-bind="text:Torn_EstLossFormatted,css:TornalertClass">0</span></td>
+                                                                            <td class="text-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Torn_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            <td class="text-center padding-tb-3"><input type="text" data-bind="value:Torn" class="width65 text-center" /></td>
+                                                                        </tr>
+
+
+                                                                    </table>
+                                                                </div>
+
+
+                                                                <div class="clearfix"></div>
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div id="PEWildFire" data-bind="css:{hidden:activeTab() !== 'Wildfire'}">
+                                                            <div class="panel-group" id="accordionWF">
+
+
+
+
+
+
+                                                                <div class="peril_body">
+                                                                    <table>
+                                                                        <tr>
+                                                                            <th style="width: 80px;" class="text-center font12">REPORTS</th>
+                                                                            <th style="width: 85px;" class="text-center font12">TYPE</th>
+                                                                            <th style="width: 80px;" class="text-center font12">#LOC</th>
+                                                                            <th style="width: 65px;" class="text-center font12">TIL</th>
+                                                                            <th style="width: 100px;" class="text-center font12">EST. LOSS</th>
+                                                                            <th style="width: 150px;" class="text-center font12">DAMAGE FACTORS</th>
+                                                                        </tr>
+
+                                                                        <tr>
+                                                                            <td class="text-center" data-bind="text:WF_Location_Events">0</td>
+                                                                            <td class="text-center">Points</td>
+                                                                            <td class="text-center" data-bind="text:WF_Location_LocationCount">0</td>
+                                                                            <td class="text-center" data-bind="text:WF_Location_TotlimFormatted">$80m</td>
+                                                                            <td class="text-center"><span data-bind="text:WF_Location_EstLossFormatted,css:WF_Location_alertClass">0</span></td>
+                                                                            <td class="hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: WF_Point_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            <td class="text-center padding-tb-3"><input type="text" data-bind="value:WF_Point" class="width65 text-center" /></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="text-center" data-bind="text:WF_Perimeter_Events">0</td>
+                                                                            <td class="text-center">Perimeters</td>
+                                                                            <td class="text-center" data-bind="text:WF_Perimeter_LocationCount">0</td>
+                                                                            <td class="text-center" data-bind="text:WF_Perimeter_TotlimFormatted">$80m</td>
+                                                                            <td class="text-center"><span data-bind="text:WF_Perimeter_EstLossFormatted,css:WF_Perimeter_alertClass">0</span></td>
+                                                                            <td class="hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: WF_Perimeter_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            <td class="text-center padding-tb-3"><input type="text" data-bind="value:WF_Perimeter" class="width65 text-center" /></td>
+                                                                        </tr>
+
+                                                                    </table>
+                                                                </div>
+
+
+
+
+
+
+                                                                <div class="clearfix"></div>
+
+
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div id="PEHurricane" data-bind="css:{hidden:activeTab() !== 'Hurricane'}">
+                                                            <div class="panel-group" id="accordionHurricane">
+
+
+
+                                                                <div class="peril_body">
+                                                                    <table>
+
+                                                                        <tr>
+                                                                            <th style="width: 80px;" class="text-center font12">REPORTS</th>
+                                                                            <th style="width: 125px;" class="text-center font12">SPEED (mph)</th>
+                                                                            <th style="width: 80px;" class="text-center font12">#LOC</th>
+                                                                            <th style="width: 65px;" class="text-center font12">TIL</th>
+                                                                            <th style="width: 100px;" class="text-center font12">EST. LOSS</th>
+                                                                            <th style="width: 150px;" class="text-center font12">DAMAGE FACTORS</th>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="text-center" data-bind="text:Hur_74_Events">0</td>
+                                                                            <td class="text-center">> 74</td>
+                                                                            <td class="text-center" data-bind="text:Hur_74_LocationCount">0</td>
+                                                                            <td class="text-center" data-bind="text:Hur_74_TotlimFormatted">$80m</td>
+                                                                            <td class="text-center"><span data-bind="text:Hur_74_EstLossFormatted,css:Hur_74_alertClass">0</span></td>
+                                                                            <td class="hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Hur_74_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            <td class="text-center padding-tb-3"><input type="text" data-bind="value:Hur_74" class="width65 text-center" /></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="text-center" data-bind="text:Hur_58_Events">0</td>
+                                                                            <td class="text-center">> 58</td>
+                                                                            <td class="text-center" data-bind="text:Hur_58_LocationCount">0</td>
+                                                                            <td class="text-center" data-bind="text:Hur_58_TotlimFormatted">$80m</td>
+                                                                            <td class="text-center"><span data-bind="text:Hur_58_EstLossFormatted,css:Hur_58_alertClass">0</span></td>
+                                                                            <td class="hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Hur_58_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            <td class="text-center padding-tb-3"><input type="text" data-bind="value:Hur_58" class="width65 text-center" /></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="text-center" data-bind="text:Hur_39_Events">0</td>
+                                                                            <td class="text-center">> 39</td>
+                                                                            <td class="text-center" data-bind="text:Hur_39_LocationCount">0</td>
+                                                                            <td class="text-center" data-bind="text:Hur_39_TotlimFormatted">$80m</td>
+                                                                            <td class="text-center"><span data-bind="text:Hur_39_EstLossFormatted,css:Hur_39_alertClass">0</span></td>
+                                                                            <td class="hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Hur_39_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            <td class="text-center padding-tb-3"><input type="text" data-bind="value:Hur_39" class="width65 text-center" /></td>
+                                                                        </tr>
+
+                                                                    </table>
+                                                                </div>
+
+
+
+                                                                <div class="clearfix"></div>
+
+
+                                                            </div>
+                                                        </div>
+
+                                                        <div id="PEEarthQuake" data-bind="css:{hidden:activeTab() !== 'Earthquake'}">
+                                                            <div class="panel-group" id="accordionEarthQuake">
+
+                                                                <div class="peril_body">
+                                                                    <table>
+                                                                        <tr>
+                                                                            <th style="width: 95px;" class="text-center font12">REPORTS</th>
+                                                                            <th style="width: 85px;" class="text-center font12">MAGNITUDE</th>
+                                                                            <th style="width: 80px;" class="text-center font12">#LOC</th>
+                                                                            <th style="width: 65px;" class="text-center font12">TIL</th>
+                                                                            <th style="width: 100px;" class="text-center font12">EST. LOSS</th>
+                                                                            <th style="width: 150px;" class="text-center font12">DAMAGE FACTORS</th>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="text-center" data-bind="text:EQ_5_Events">0</td>
+                                                                            <td class="text-center">5</td>
+                                                                            <td class="text-center" data-bind="text:EQ_5_LocationCount">0</td>
+                                                                            <td class="text-center" data-bind="text:EQ_5_TotlimFormatted">$80m</td>
+                                                                            <td class="text-center"><span data-bind="text:EQ_5_EstLossFormatted,css:EQ_5_alertClass">0</span></td>
+                                                                            <td class="text-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: EQ_5_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            <td class="text-center padding-tb-3"><input type="text" data-bind="value:EQ_5" class="width65 text-center" /></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="text-center" data-bind="text:EQ_6_Events">0</td>
+                                                                            <td class="text-center">6</td>
+                                                                            <td class="text-center" data-bind="text:EQ_6_LocationCount">0</td>
+                                                                            <td class="text-center" data-bind="text:EQ_6_TotlimFormatted">$80m</td>
+                                                                            <td class="text-center"><span data-bind="text:EQ_6_EstLossFormatted,css:EQ_6_alertClass">0</span></td>
+                                                                            <td class="text-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: EQ_6_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            <td class="text-center padding-tb-3"><input type="text" data-bind="value:EQ_6" class="width65 text-center" /></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="text-center" data-bind="text:EQ_7_Events">0</td>
+                                                                            <td class="text-center">7</td>
+                                                                            <td class="text-center" data-bind="text:EQ_7_LocationCount">0</td>
+                                                                            <td class="text-center" data-bind="text:EQ_7_TotlimFormatted">$80m</td>
+                                                                            <td class="text-center"><span data-bind="text:EQ_7_EstLossFormatted,css:EQ_7_alertClass">0</span></td>
+                                                                            <td class="text-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: EQ_7_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            <td class="text-center padding-tb-3"><input type="text" data-bind="value:EQ_7" class="width65 text-center" /></td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td class="text-center" data-bind="text:EQ_8_Events">0</td>
+                                                                            <td class="text-center">8+</td>
+                                                                            <td class="text-center" data-bind="text:EQ_8_LocationCount">0</td>
+                                                                            <td class="text-center" data-bind="text:EQ_8_TotlimFormatted">$80m</td>
+                                                                            <td class="text-center"><span data-bind="text:EQ_8_EstLossFormatted,css:EQ_8_alertClass">0</span></td>
+                                                                            <td class="text-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: EQ_8_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            <td style="width: 70px;" class="text-center padding-tb-3"><input type="text" data-bind="value:EQ_8" class="width65 text-center" /></td>
+                                                                        </tr>
+
+                                                                    </table>
+                                                                </div>
+
+
+                                                                <div class="clearfix"></div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="pull-right col-lg-2 col-md-3 col-sm-3 col-xs-3">
+                                                        <a id="admin-btn-reset" class="admin-btn-reset">RESET</a>
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <div id="damagefactoolbtn" class="col-sm-12 col-xs-12 text-center closed">
+                                                    <span class="bg-primary">
+
+                                                        <img src="../../assets/images/chevron-down.png" class="chevron-down" />
+
+                                                       
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+
+
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 col-xs-12  innerAll">
+                            <div class="row">
+                                <div class="col-xs-12 col-sm-3 col-md-3">
+                                    <div class="widget innerLR margin-bottom10">
+                                        <span> REPORT DATE</span>
+                                        <div class="clearfix"></div>
+                                        <div class="col-md-8 col-xs-8 padding-none">
+                                            <h3>
+                                                <span class="pull-left" data-bind="text:MonthOfTheDay"></span>&nbsp;
+                                                <span data-bind="text:TheDay"></span>
+                                            </h3>
+                                        </div>
+                                        <div class="col-md-4 col-xs-4 text-right">
+                                            <a href="#" class="calender-icon" id="datePicker">
+                                                <img src="../../assets/images/calender.png" />
+
+                                            </a>
+
+                                           
+
+                                        </div>
+                                        <br />
+                                        <div id="dvSelectedDate" class="dvSelectedDate hidden">
+                                            <input type="text" id="txtDatePicker" class="invisible" />
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-9 col-md-9">
+                                    <div class="widget global-text innerLR margin-bottom10">
+
+                                        <div class="col-md-3 col-xs-3 text-center">
+                                            REPORTS
+                                            <h3>
+                                                <span data-bind="text:TotalEventsFormatted">0</span>
+                                            </h3>
+                                        </div>
+                                        <div class="col-md-3 col-xs-3 text-center">
+                                            LOCATIONS
+                                            <h3>
+                                                <span data-bind="text:TotalLocationFormatted">0</span>
+                                            </h3>
+                                        </div>
+                                        <div class="col-md-6 col-xs-6 padding-none text-center">
+                                            EST. LOSSES (Day)
+                                            <h3 class="text-warning-custom">
+                                                <span data-bind="text:TotalEstLossFormatted,css:estLossColor">$0M</span>
+                                            </h3>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-3 col-md-3">
+
+                                </div>
+
+
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-sm-12 col-xs-12  innerAll">
+                            <div class="row">
+                                <div class="col-xs-9 col-sm-9 col-md-9 trend-left-space">
+                                    <div class="widget innerLR margin-bottom10">
+                                        <span id="trendHeading">TREND</span> <b style="display:none;" id="trendTooltip"></b>
+                                        <div class="clearfix"></div>
+                                        <div class="col-md-12 col-xs-12 padding-none ">
+                                            <div id="dvlinechart" class="trend-height user-select" data-bind="HighSplineChart: { EstmtLossData: TILLineDatas,Locdata: LocationLineDatas }"></div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+
+                                    <div style="display:none;" id="trendDate">01 JAN 2015</div>
+
+                                </div>
+                                <div class="col-xs-3 col-sm-3 col-md-3">
+                                    <div class="widget innerLR margin-bottom10 companylogo-container">
+
+                                        <img id="companyLogo" src="" class="group-companylogo" />
+                                        <div class="clearfix"></div>
+                                    </div>
+
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6">
+                            <div class="row">
+                                <div class="clearfix"></div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 estimated-peril">
+                                    <div class="widget Total_Limit_body">
+                                        <div class="widget-head innerAll half">
+                                            <span>
+                                                Estimated Losses by Peril
+                                                <span><small data-bind="handlePerilDrillDown:{}"></small></span>
+                                            </span>
+                                        </div>
+                                        <!-- Widget -->
+                                        <div class="innerAll">
+                                            <div class="col-md-12">
+                                                <div data-bind="css:{hidden:lossDonutStatus()!=='nodata'}" class="nodata-left hidden">
+                                                    <h4>There are no estimated losses</h4>
+                                                    <h2 class="nodata-gray">0</h2>
+                                                </div>
+                                                <div data-bind="css:{hidden:lossDonutStatus() ==='nodata'}">
+                                                    <div class="row flexContainer alignItemCenter peril-display-table">
+
+
+                                                        <div class="padding-none col-md-6 col-sm-7 peril-display-table-cell">
+                                                            <div class="">
+                                                                <div class="height180" id="div_donut_chart_left" data-bind="HighDonutChartLeft:{}"></div>
+                                                            </div>
+                                                        </div>
+
+
+
+                                                        <div class="padding-none pieLegend col-md-6 col-sm-5  peril-display-table-cell">
+                                                            <div class="">
+                                                                <table class="cellPadding-2">
+                                                                    <tbody data-bind="foreach:EstLossDonutLegend">
+                                                                        <tr>
+                                                                            <td><span class="legendBox" data-bind="style:{backgroundColor:color}"></span></td>
+                                                                            <td><span data-bind="text:name"></span> </td>
+                                                                            <td class="text-right"> <span data-bind="text:percentText"></span> </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                        </div>
+
+
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12">
+                                                            <span class="font11 color-white user-select note">Note: the same locations may appear in multiple perils</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <!-- // End Widget Body -->
+                                    </div>
+                                </div>
+                                <div class="col-xs-12 col-sm-6 col-md-6 affected-peril">
+                                    <div class="widget Total_Limit_body">
+                                        <div class="widget-head innerAll half">
+                                            <span>
+                                                Affected Locations by Peril
+                                                <span><small data-bind="handlePerilDrillDown:{}"></small></span>
+                                            </span>
+                                        </div>
+                                        <!-- Widget -->
+                                        <div class="innerAll">
+                                            <div class="col-md-12">
+                                                <div data-bind="css:{hidden:locationDonutStatus() !=='nodata'}" class="nodata-left hidden">
+                                                    <h4>
+                                                        There are no affected locations
+                                                    </h4>
+                                                    <h2 class="nodata-blue">0</h2>
+                                                </div>
+
+                                                <div data-bind="css:{hidden:locationDonutStatus() ==='nodata'}">
+
+                                                    <div class="row flexContainer alignItemCenter  peril-display-table">
+                                                        <div class="col-md-6 col-sm-7 padding-none  peril-display-table-cell">
+                                                            <div class="height180" id="div_donut_chart_right" data-bind="HighDonutChartRight:{}"></div>
+                                                        </div>
+                                                        <div class="col-md-6 col-sm-5 padding-none pieLegend  peril-display-table-cell">
+                                                            <table class="cellPadding-2">
+                                                                <tbody data-bind="foreach:LocAtRiskDonutLegend">
+                                                                    <tr>
+                                                                        <td><span class="legendBox" data-bind="style:{backgroundColor:color}"></span></td>
+                                                                        <td><span data-bind="text:name"></span> </td>
+                                                                        <td class="text-right"> <span data-bind="text:percentText"></span> </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-md-12 col-sm-12 col-xs-12"><span class="font11 note">Note: the same locations may appear in multiple perils</span></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                        <!-- // End Widget Body -->
+                                    </div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="col-sm-12 col-md-12">
+                                    <div class="widget">
+                                        <div class="widget-head innerAll half">
+                                            <span>
+                                                Affected Locations by Limit Profile
+                                                <span><span data-bind="handlePerilDrillDown:{}"></span></span>
+                                            </span>
+                                        </div>
+                                        <!-- Widget -->
+                                        <div class="innerAll">
+                                            <div class="row">
+                                                <div class="col-md-12">
+                                                    <div data-bind="css:{hidden:barChartStatus() !=='nodata'}" class="nodata-affected-locations">
+                                                        <h4>
+                                                            There are no afftected locations
+                                                        </h4>
+                                                        <h2 class="nodata-gray">0</h2>
+                                                    </div>
+
+                                                    <div class="hidden" id="dvchart_horizontal_bars" data-bind="handleBarChartPerilTotlimProfile:{data:PerilTotlimProfile},css:{hidden:barChartStatus() ==='nodata'}">
+                                                    </div>
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                                <!-- // End Widget Body -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-6 widget-left-padding peril-report-left-space">
+                            <div class="row">
+                                <div class="clearfix"></div>
+                                <div class="col-sm-12 col-md-12">
+                                    <div class="widget">
+                                        <div class="widget-head innerAll half">
+                                            <div>
+                                           
+                                                <div class="tabReportsPeril">
+                                                    <div class="ReportsPerilParent-tab parent-tab-active" data-bind="event:{ click: function(data,event){HandleReportPeril('perils',data,event)} },css:{'parent-tab-active':ReportPerilTab() === 'perils'}">
+                                                        Perils
+                                                    </div>
+                                                    <div class="ReportsPerilParent-tab" data-bind="event:{ click: function(data,event){HandleReportPeril('reports',data,event)} },css:{'parent-tab-active':ReportPerilTab() === 'reports','disabled':ReportTabState() === 'disabled'}">
+                                                        Reports
+                                                    </div>
+
+                                                    <div class="pull-right">
+                                                        <a id="lnkExportToxl" href="javascript:void(0)" title="Export to Excel" class="toolsxl"></a>
+
+                                                    </div>
+                                                    <div id="divMapViewSpan" class="mapexpandview_up pull-right" data-isexpand="0">
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="innerAll afflocationsPanel">
+                                            <h2 data-bind="css:{hidden:locationsStatus() !=='nodata'}" class="nodata-right">NO DATA</h2>
+                                            <div data-bind="css:{hidden:locationsStatus() ==='nodata'}" class="col-sm-12 col-xs-12 position-rel padding-none hidden">
+                                                <div id="dvMapPreloader" class="position-abs modalOverlay hidden">
+
+                                                    <div id="circlePreloader_bodyMap">
+                                                        <div class="circlePreloaderMap">
+                                                            <div class="f_circleG frotateG_01">
+                                                            </div>
+                                                            <div class="f_circleG frotateG_02">
+                                                            </div>
+                                                            <div class="f_circleG frotateG_03">
+                                                            </div>
+                                                            <div class="f_circleG frotateG_04">
+                                                            </div>
+                                                            <div class="f_circleG frotateG_05">
+                                                            </div>
+                                                            <div class="f_circleG frotateG_06">
+                                                            </div>
+                                                            <div class="f_circleG frotateG_07">
+                                                            </div>
+                                                            <div class="f_circleG frotateG_08">
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div id="MapSecondSlide" style="height:204px;width:586px;">
+                                                </div>
+                                            </div>
+
+
+                                            <div data-bind="css:{hidden:locationsStatus() ==='nodata'}" class="col-sm-12 col-xs-12 padding-none hidden">
+                                                <div class="datagridTitle">
+
+                                                    <div class="col-xs-6 col-sm-6">
+
+
+                                                        <span data-bind="css:{hidden:drillDownStatus().level_1 === ''}" class="pull-left-responsive margin-left-10 margin-bottom-8">
+
+                                                            <a href="#" class="text-decoration-none text-black btn btn-default btn-xs" data-bind="event:{ click: function(data,event){removeFilter('level_1',data,event)} }">
+                                                                <b data-bind="text:drillDownStatus().level_1">All Events</b>
+                                                                <img src="../../assets/images/danger.png" class="danger-icon" />
+                                                    
+
+                                                            </a>
+
+                                                        </span>
+                                                        <span data-bind="css:{hidden:drillDownStatus().level_2 === ''}" class="pull-left-responsive margin-left-10 margin-bottom-10">
+
+                                                            <a href="#" class="text-decoration-none text-black btn btn-default btn-xs" data-bind="event:{ click: function(data,event){removeFilter('level_2',data,event)} }">
+
+                                                                <span data-bind="html:drillDownStatus().level_2"></span>
+                                                                <img src="../../assets/images/danger.png" class="danger-icon" />
+                                                       
+                                                            </a>
+
+                                                        </span>
+
+                                                    </div>
+                                                    <div class="col-xs-6 col-sm-6">
+                                                        <div class="pull-right-responsive margin-left-10 margin-bottom-8" data-bind="css:{ hidden:ReportPerilTab() === 'reports'}">
+
+                                                            <a href="#" data-bind="css:{active:perilLocationFilter() == 'affected','disabled':IsAffectedPerilExist() == false},event:{ click: function(data,event){handlePerilLocFilter('affected',data,event)} }" class="text-decoration-none text-black btn btn-default btn-xs">
+
+
+                                                                <div class="affected-points-outer">
+                                                                    <div class="affected-points"></div>
+                                                                </div>
+                                                                <b>Affected Locations</b>
+
+                                                            </a>
+
+                                                        </div>
+                                                        <div class="pull-right-responsive margin-left-10 margin-bottom-8" data-bind="css:{ hidden:ReportPerilTab() === 'reports'}">
+
+                                                            <a href="#" data-bind="css:{active:perilLocationFilter() == 'all'},event:{ click: function(data,event){handlePerilLocFilter('all',data,event)} }" class="text-decoration-none text-black btn btn-default btn-xs">
+                                                                <div class="affected-points-outer"></div>
+                                                                <b>All Perils</b>
+
+                                                            </a>
+
+                                                        </div>
+
+                                                        <div data-bind="css:{hidden:ReportPerilTab() === 'perils'}" class="pull-right">
+                                                            <span class="top5-text">Top 5 reports by Est. Loss</span>
+                                                        </div>
+                                                    </div>
+
+
+                                                </div>
+                                                <div class="clearfix"></div>
+                                                <div class="box table-cont-counties">
+                                                    <!-- /.box-header -->
+                                                    <div class="box-body table-responsive padding-none">
+                                                        <table data-bind="css:{'hidden':ReportPerilTab() != 'perils'}" id="tblLocCounty" class="table table-hover locationCountyTable no-margin-bottom">
+                                                            <thead>
+                                                                <tr>
+                                                                    <td data-bind="event:{ click: function(data,event){handleMapGridSorting('eventNameSort','sortableEventName',data,event)} }" style="width:110px;" align="center" class="cursor-default"><span data-bind="text:mapGridRptHeaderText">Reports</span>  <i class="fa" data-bind="css:{'fa-sort':eventNameSort()=='unsorted','fa-sort-asc':eventNameSort()=='asc','fa-sort-desc':eventNameSort()=='desc'}"></i></td>
+                                                                    <td data-bind="event:{ click: function(data,event){handleMapGridSorting('eventNoSort','eventNo',data,event)} }" style="width:55px;" align="center" class="cursor-default"># <i class="fa" data-bind="css:{'fa-sort':eventNoSort()=='unsorted','fa-sort-asc':eventNoSort()=='asc','fa-sort-desc':eventNoSort()=='desc'}"></i></td>
+                                                                    <td data-bind="event:{ click: function(data,event){handleMapGridSorting('locNoSort','locations',data,event)} }" style="width:75px;" align="center" class="cursor-default">Loc <i class="fa" data-bind="css:{'fa-sort':locNoSort()=='unsorted','fa-sort-asc':locNoSort()=='asc','fa-sort-desc':locNoSort()=='desc'}"></i></td>
+                                                                    <td data-bind="event:{ click: function(data,event){handleMapGridSorting('totLimSort','totLimNum',data,event)} }" style="width:150px;" align="right" class="cursor-default">Total Est. Limit <i class="fa" data-bind="css:{'fa-sort':totLimSort()=='unsorted','fa-sort-asc':totLimSort()=='asc','fa-sort-desc':totLimSort()=='desc'}"></i></td>
+                                                                    <td align="center" style="width:80px">%</td>
+                                                                    <td id="totGrsLossHeader" data-bind="event:{ click: function(data,event){handleMapGridSorting('totEstLossSort','totEstLossNum',data,event)} },css:{'highLightedColumn':totEstLossSort() !='unsorted'}" style="width:160px;" align="right" class="cursor-default">Total Est. Loss <i class="fa" data-bind="css:{'fa-sort':totEstLossSort()=='unsorted','fa-sort-asc':totEstLossSort()=='asc','fa-sort-desc':totEstLossSort()=='desc'}"></i></td>
+                                                                    <td align="center" style="width:80px">%</td>
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody data-bind="foreach:MapGridData">
+                                                                <tr data-bind="event:{ click: function(data,event){$parent.handleGridRowClick(data,event)} }">
+                                                                    <td data-bind="html:eventName" align="left" class="cursor-default"></td>
+                                                                    <td data-bind="text:eventNo" align="center" class="cursor-default"></td>
+                                                                    <td data-bind="text:locations" align="center" class="cursor-default">0</td>
+                                                                    <td data-bind="text:totLim" align="right" class="cursor-default"></td>
+                                                                    <td data-bind="text:totLimPer" align="right" class="cursor-default"></td>
+                                                                    <td data-bind="text:totEstLoss" align="right" class="cursor-default"></td>
+                                                                    <td data-bind="text:totEstLossPer" align="right" class="cursor-default"></td>
+
+                                                                </tr>
+
+                                                            </tbody>
+                                                            <tfoot>
+                                                                <tr class="subtotalrow" data-bind="with:MapGridTotal">
+                                                                    <td class="subtotaltd cursor-default" align="left">Total</td>
+                                                                    <td class="subtotaltd cursor-default" data-bind="text:events" align="center"></td>
+                                                                    <td class="subtotaltd cursor-default" data-bind="text:locations" align="center"></td>
+                                                                    <td class="subtotaltd cursor-default" data-bind="text:til" align="right"></td>
+                                                                    <td class="subtotaltd cursor-default " align="center">
+                                                                        <div class="portfolio-box" data-bind="text:totLimPer"></div>
+                                                                    </td>
+                                                                    <td class="subtotaltd cursor-default" data-bind="text:totEstLoss" align="right"></td>
+                                                                    <td class="subtotaltd cursor-default" align="center">
+                                                                        <div class="portfolio-box" data-bind="text:totEstLossPer"></div>
+                                                                    </td>
+
+
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
+
+                                                        <table data-bind="css:{'hidden':ReportPerilTab() != 'reports'}" id="tblLocCounty" class="table table-hover locationCountyTable locationCountysecond no-margin-bottom">
+                                                            <thead>
+                                                                <tr>
+                                                                    <td style="width:90px;" align="center" class="cursor-default">Peril </td>
+                                                                    <td style="" align="left" class="cursor-default">Name</td>
+                                                                    <td style="width: 50px;" align="right" class="cursor-default">Size</td>
+                                                                    <td style="width: 50px;" align="right" class="cursor-default">Loc</td>
+                                                                    <td style="width: 85px;" align="right" class="cursor-default">Est. Limit </td>
+                                                                    <td style="width: 85px;" align="right" class="cursor-default">Est. Loss </td>
+
+
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody data-bind="foreach:ReportGridData">
+                                                                <tr data-bind="event:{ click: function(data,event){$parent.handleReportTabGridRowClick(data,event)} }">
+                                                                    <td data-bind="html:Peril.legend" align="left" class="cursor-default"></td>
+                                                                    <td data-bind="text:Location" align="left" class="cursor-default"></td>
+                                                                    <td data-bind="text:Range" align="right" class="cursor-default">0</td>
+                                                                    <td data-bind="text:PinCount" align="right" class="cursor-default"></td>
+                                                                    <td data-bind="text:EstLimit" align="right" class="cursor-default"></td>
+                                                                    <td data-bind="text:EstLoss" align="right" class="cursor-default"></td>
+
+                                                                </tr>
+
+                                                            </tbody>
+                                                            <tfoot>
+                                                                <tr class="subtotalrow-report-one" data-bind="with:ReportGridDataTotal">
+                                                                    <td class="subtotaltd cursor-default" align="left">Total</td>
+                                                                    <td class="subtotaltd cursor-default" align="left"></td>
+                                                                    <td class="subtotaltd cursor-default" align="center"></td>
+                                                                    <td class="subtotaltd cursor-default" data-bind="text:pinCount" align="right"></td>
+                                                                    <td class="subtotaltd cursor-default" data-bind="text:estLimit" align="right"></td>
+
+                                                                    <td class="subtotaltd cursor-default" data-bind="text:estLoss" align="right"></td>
+
+
+                                                                </tr>
+
+                                                                <tr class="subtotalrow-report-pct" data-bind="with:ReportGridAffPortfolioPct">
+                                                                    <td class="subtotaltd cursor-default" align="left" colspan="2">Percent of Affected Portfolio</td>
+                                                                    <td class="subtotaltd cursor-default" align="center"></td>
+                                                                    <td class="subtotaltd cursor-default" data-bind="text:locPct" align="right"></td>
+                                                                    <td class="subtotaltd cursor-default" data-bind="text:estLimitPct" align="right"></td>
+                                                                    <td class="subtotaltd cursor-default" data-bind="text:estLossPct" align="right"></td>
+
+
+                                                                </tr>
+                                                            </tfoot>
+                                                        </table>
+                                                    </div>
+                                                    <!-- /.box-body -->
+                                                    <div class="clearfix"></div>
+                                                </div>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+
+
+                    <div class="row footer-text">
+                        DISCLAIMER: All losses are estimates only and caution should be taken when making business assumptions based on this output.
+                    </div>
+
+
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+
+
+
+
+
+
+        <!-- Controls -->
+
+
+    </div>
+</div>
