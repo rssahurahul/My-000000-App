@@ -6,26 +6,34 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net.Http;
 using RestSharp;
 using System.Web.Http;
+using System.IO;
+using Microsoft.Extensions.Configuration;
+using System.Net.Http.Headers;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace MyAngularApp.api
 {
-    [Route("api/[controller]")]
+    [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
     public class ServiceProxyController : Controller
     {
+        private IConfiguration _configuration;
 
-        [HttpGet]
-        [HttpPost]
+        public ServiceProxyController(IConfiguration configuration) {
+            _configuration = configuration;
+        }
+
+        [System.Web.Http.HttpGet]
+        [System.Web.Http.HttpPost]
         public HttpResponseMessage Get([FromUri]string resource, [FromUri]string method)
         {
-            RestClient client = new RestClient(ConfigurationManager.AppSettings["ServiceUrl"]);
+            RestClient client = new RestClient(_configuration["ConsumeServiceConfig:ServiceUrl"]);
             RestRequest req = new RestRequest(resource);
             req.Method = GetRequestMethod(method);
 
             if (req.Method == Method.POST)
             {
-                Stream stream = Request.Content.ReadAsStreamAsync().Result;
+                Stream stream = Request.ReadFormAsync().Result as Stream;//Request.Content.ReadAsStreamAsync().Result;
                 StreamReader rdr = new StreamReader(stream);
                 string content = rdr.ReadToEnd();
                 rdr.Close();
@@ -89,6 +97,40 @@ namespace MyAngularApp.api
 
 
             return response;
+        }
+
+        private Method GetRequestMethod(string method)
+        {
+            switch (method.ToUpper())
+            {
+                case "GET":
+                    return Method.GET;
+
+                case "POST":
+                    return Method.POST;
+
+                case "PUT":
+                    return Method.PUT;
+
+                case "HEAD":
+                    return Method.HEAD;
+
+                case "OPTIONS":
+                    return Method.OPTIONS;
+
+                case "DELETE":
+                    return Method.DELETE;
+
+                case "MERGE":
+                    return Method.MERGE;
+
+                case "PATCH":
+                    return Method.PATCH;
+
+                default:
+                    return Method.GET;
+
+            }
         }
 
         //// GET: api/values
