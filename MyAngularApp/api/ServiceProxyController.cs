@@ -15,7 +15,7 @@ using System.Net.Http.Headers;
 namespace MyAngularApp.api
 {
     [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
-    public class ServiceProxyController : Controller
+    public class ServiceProxyController : ApiController
     {
         private IConfiguration _configuration;
 
@@ -33,7 +33,7 @@ namespace MyAngularApp.api
 
             if (req.Method == Method.POST)
             {
-                Stream stream = Request.ReadFormAsync().Result as Stream;//Request.Content.ReadAsStreamAsync().Result;
+                Stream stream = Request.Content.ReadAsStreamAsync().Result;
                 StreamReader rdr = new StreamReader(stream);
                 string content = rdr.ReadToEnd();
                 rdr.Close();

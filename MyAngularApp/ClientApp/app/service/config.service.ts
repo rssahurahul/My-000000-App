@@ -1,4 +1,4 @@
-﻿import { Injectable } from '@angular/core';
+﻿import { Injectable,OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 
@@ -8,7 +8,11 @@ export interface config {
 }
 
 @Injectable()
-export class ConfigService {
-    constructor(private http: HttpClient) {}
+export class ConfigService implements OnInit{
+    constructor(private http: HttpClient) { }
+
+    ngOnInit() {
+        
+    }
 }
 
