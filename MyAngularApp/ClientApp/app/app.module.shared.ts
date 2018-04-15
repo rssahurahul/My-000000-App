@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+//import { HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 
 import { AppComponent } from './components/app/app.component';
@@ -16,7 +17,8 @@ import { DashBoardComponent } from './components/dashboard/dashboard.component';
     ],
     imports: [
         CommonModule,
-        HttpClientModule,
+        //HttpClientModule,
+        HttpClient,
         FormsModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'app', pathMatch: 'full' },

@@ -23,6 +23,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="ClientApp\app\components\dashboard\dashboard.hazard.service.ts" />
+    <None Remove="ClientApp\app\components\http-error-handler.service.ts" />
+    <None Remove="ClientApp\app\components\message.service.ts" />
+    <None Remove="ClientApp\app\components\navbar\navbar.service.ts" />
     <None Remove="ClientApp\app\service\config.service.ts" />
     <None Remove="ClientApp\app\service\hazard.service.ts" />
   </ItemGroup>
@@ -32,12 +36,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="ClientApp\app\components\" />
-  </ItemGroup>
-
-  <ItemGroup>
+    <TypeScriptCompile Include="ClientApp\app\components\dashboard\dashboard.hazard.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\http-error-handler.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\message.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\navbar\navbar.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\service\hazard.service.ts" />
-    <TypeScriptCompile Include="ClientApp\app\service\config.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\config\config.service.ts" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
