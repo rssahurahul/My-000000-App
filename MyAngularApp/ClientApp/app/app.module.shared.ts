@@ -1,9 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-//import { HttpClientModule } from '@angular/common/http';
-import { HttpClient } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
+//import { HttpClient,HttpHandler } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+
+import { HttpErrorHandler, HandleError } from '../app/components/http-error-handler.service';
+import { MessageService } from '../app/components/message.service';
 
 import { AppComponent } from './components/app/app.component';
 import { NavBarComponent } from './components/navbar/navbar.component';
@@ -17,8 +20,8 @@ import { DashBoardComponent } from './components/dashboard/dashboard.component';
     ],
     imports: [
         CommonModule,
-        //HttpClientModule,
-        HttpClient,
+        HttpClientModule,
+        //HttpClient,
         FormsModule,
         RouterModule.forRoot([
             { path: '', redirectTo: 'app', pathMatch: 'full' },
@@ -27,7 +30,8 @@ import { DashBoardComponent } from './components/dashboard/dashboard.component';
             //{ path: 'fetch-data', component: FetchDataComponent },
             { path: '**', redirectTo: 'app' }
         ])
-    ]
+    ],
+    providers: [HttpErrorHandler, MessageService]
 })
 export class AppModuleShared {
 }
