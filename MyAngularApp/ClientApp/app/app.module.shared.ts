@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 //import { HttpClient,HttpHandler } from '@angular/common/http';
@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 
 import { HttpErrorHandler, HandleError } from '../app/components/http-error-handler.service';
 import { MessageService } from '../app/components/message.service';
+import { ConfigService } from './components/config/config.service';
 
 import { AppComponent } from './components/app/app.component';
 import { NavBarComponent } from './components/navbar/navbar.component';
@@ -31,7 +32,7 @@ import { DashBoardComponent } from './components/dashboard/dashboard.component';
             { path: '**', redirectTo: 'app' }
         ])
     ],
-    providers: [HttpErrorHandler, MessageService]
+    providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }, HttpErrorHandler, MessageService, ConfigService]
 })
 export class AppModuleShared {
 }
