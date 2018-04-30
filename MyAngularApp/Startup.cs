@@ -42,13 +42,19 @@ namespace MyAngularApp
 
             app.UseMvc(routes =>
             {
+               // routes.MapRoute(name: "webapi", template: "api/{controller}/{action}", defaults: new { controller = "ServiceProxy", action = "Get" });
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
 
+
+
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",
                     defaults: new { controller = "Home", action = "Index" });
+
+
             });
         }
     }
