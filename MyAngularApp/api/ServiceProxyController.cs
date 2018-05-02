@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using System.Net.Http;
+//using System.Net.Http;
 using RestSharp;
-using System.Web.Http;
 using System.IO;
 using Microsoft.Extensions.Configuration;
 using System.Net.Http.Headers;
@@ -15,7 +14,7 @@ using System.Net.Http.Headers;
 namespace MyAngularApp.api
 {
     [Microsoft.AspNetCore.Mvc.Route("api/[controller]")]
-    public class ServiceProxyController : ApiController
+    public class ServiceProxyController : ControllerBase
     {
         private IConfiguration _configuration;
 
@@ -23,9 +22,9 @@ namespace MyAngularApp.api
             _configuration = configuration;
         }
 
-        [System.Web.Http.HttpGet]
-        [System.Web.Http.HttpPost]
-        public HttpResponseMessage Get([FromUri]string resource, [FromUri]string method)
+        [HttpGet]
+        [HttpPost]
+        public IActionResult Get([FromQuery]string resource, [FromQuery]string method)
         {
             RestClient client = new RestClient(_configuration["ConsumeServiceConfig:ServiceUrl"]);
             RestRequest req = new RestRequest(resource);
@@ -33,18 +32,22 @@ namespace MyAngularApp.api
 
             if (req.Method == Method.POST)
             {
-                Stream stream = Request.Content.ReadAsStreamAsync().Result;
-                StreamReader rdr = new StreamReader(stream);
+                //Stream stream = Request.ReadFormAsync().Result //Request.Content.ReadAsStreamAsync().Result;
+                if (Request.Body.CanSeek)
+                {
+                    Request.Body.Position = 0;
+                }
+                StreamReader rdr = new StreamReader(Request.Body);
                 string content = rdr.ReadToEnd();
                 rdr.Close();
                 rdr.Dispose();
-                stream.Close();
-                stream.Dispose();
+                //stream.Close();
+                //stream.Dispose();
                 req.AddParameter("application/json", content, ParameterType.RequestBody);
             }
             else if (req.Method == Method.GET)
             {
-                var qry = Request.GetQueryNameValuePairs();
+                var qry = Request.Query;
                 foreach (var item in qry)
                 {
                     if (item.Key.ToLower() != "resource" && item.Key.ToLower() != "method")
@@ -56,43 +59,43 @@ namespace MyAngularApp.api
             req.Timeout = 24 * 60 * 60 * 1000;
             RestResponse resp = (RestResponse)(client.Execute(req));
 
-            HttpResponseMessage response = Request.CreateResponse();
-            if (resp.StatusCode == 0)
-            {
-                response.StatusCode = System.Net.HttpStatusCode.NotFound;
-                response.ReasonPhrase = "Not Found";
-                return response;
-            }
+            ContentResult response = new ContentResult { Content = resp.Content, ContentType = resp.ContentType, StatusCode = (int)resp.StatusCode };
+            //if (resp.StatusCode == 0)
+            //{
+            //    response.StatusCode = System.Net.HttpStatusCode.NotFound;
+            //    response.ReasonPhrase = "Not Found";
+            //    return response;
+            //}
 
-            response.StatusCode = resp.StatusCode;
-            response.ReasonPhrase = resp.StatusDescription;
-            if (resp.RawBytes != null)
-            {
-                response.Content = new StreamContent(new MemoryStream(resp.RawBytes));
-            }
-            else
-            {
-                response.Content = new StreamContent(new MemoryStream(System.Text.Encoding.UTF8.GetBytes("")));
-            }
-            if (resp.ContentType != null)
-            {
-                if (resp.ContentType.ToLower().Contains(";"))
-                {
-                    string[] arrContentTypeSplit = resp.ContentType.Split(';');
-                    response.Content.Headers.ContentType = new MediaTypeHeaderValue(arrContentTypeSplit[0]);
-                }
-                else
-                {
-                    response.Content.Headers.ContentType = new MediaTypeHeaderValue(resp.ContentType);
-                }
-            }
+            //response.StatusCode = resp.StatusCode;
+            //response.ReasonPhrase = resp.StatusDescription;
+            //if (resp.RawBytes != null)
+            //{
+            //    response.Content = new StreamContent(new MemoryStream(resp.RawBytes));
+            //}
+            //else
+            //{
+            //    response.Content = new StreamContent(new MemoryStream(System.Text.Encoding.UTF8.GetBytes("")));
+            //}
+            //if (resp.ContentType != null)
+            //{
+            //    if (resp.ContentType.ToLower().Contains(";"))
+            //    {
+            //        string[] arrContentTypeSplit = resp.ContentType.Split(';');
+            //        response.Content.Headers.ContentType = new MediaTypeHeaderValue(arrContentTypeSplit[0]);
+            //    }
+            //    else
+            //    {
+            //        response.Content.Headers.ContentType = new MediaTypeHeaderValue(resp.ContentType);
+            //    }
+            //}
 
             //response.Headers.ContentType = "";
-            if (resource.ToLower().Contains("heatmap"))
-            {
-                response.Headers.CacheControl = CacheControlHeaderValue.Parse("max-age=7200,public");
-                response.Headers.Add("pragma", "public");
-            }
+            //if (resource.ToLower().Contains("heatmap"))
+            //{
+            //    response.Headers.CacheControl = CacheControlHeaderValue.Parse("max-age=7200,public");
+            //    response.Headers.Add("pragma", "public");
+            //}
 
 
 
