@@ -9,6 +9,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Routing" Version="2.0.2" />
     <PackageReference Include="RestSharp" Version="106.2.1" />
   </ItemGroup>
 
@@ -22,12 +23,17 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Remove="api\ServiceProxyController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="ClientApp\app\components\dashboard\dashboard.hazard.service.ts" />
     <None Remove="ClientApp\app\components\http-error-handler.service.ts" />
     <None Remove="ClientApp\app\components\message.service.ts" />
     <None Remove="ClientApp\app\components\navbar\navbar.service.ts" />
     <None Remove="ClientApp\app\service\config.service.ts" />
     <None Remove="ClientApp\app\service\hazard.service.ts" />
+    <None Remove="ClientApp\app\Store.ts" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,6 +47,11 @@
     <TypeScriptCompile Include="ClientApp\app\components\navbar\navbar.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\service\hazard.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\config\config.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\components\dashboard\Store.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="api\" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">

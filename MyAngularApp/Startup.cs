@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.AspNetCore.Routing;
 
 namespace MyAngularApp
 {
@@ -20,6 +21,7 @@ namespace MyAngularApp
         {
             services.AddMvc();
             services.AddSingleton<IConfiguration>(Configuration);
+            services.AddRouting();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,19 +41,20 @@ namespace MyAngularApp
             }
 
             app.UseStaticFiles();
-
+            //var routeBuilder = new RouteBuilder(app);
+            //routeBuilder.MapRoute("api/{controller}/{action}",htt);
+            //app.UseRouter(routeBuilder.Build());
             app.UseMvc(routes =>
             {
                 // routes.MapRoute(name: "webapi", template: "api/{controller}/{action}", defaults: new { controller = "ServiceProxy", action = "Get" });
 
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+  //              routes.MapRoute(
+  //name: "DefaultApi",
+  //template: "api/{controller}/{action}");
 
                 routes.MapRoute(
-    "NotFound",
-    "{*url}",
-    new { controller = "Error", action = "PageNotFound" });
+                    name: "default",
+                    template: "api/{controller=Home}/{action=Index}/{id?}");
 
                 routes.MapSpaFallbackRoute(
                     name: "spa-fallback",

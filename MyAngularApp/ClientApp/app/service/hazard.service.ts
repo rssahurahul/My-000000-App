@@ -3,4 +3,5 @@
 @Injectable()
 export class HazardService {
 
+
 }

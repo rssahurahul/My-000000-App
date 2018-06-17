@@ -27,11 +27,14 @@ export class DashboardHazardService {
     }
 
     getClientLogo(): Observable<ClientLogo> {
-        return this.http.get<ClientLogo>(this.serviceUrl, { params: new HttpParams().set('resource', '/clientlogo').set('method', 'GET').set('id', '2') })
-      
+        return this.http.get<ClientLogo>(this.serviceUrl, { params: new HttpParams().set('resource', '/clientlogo').set('method', 'GET').set('id', '2') })      
             //.pipe(
             //catchError(this.handleError('getClientLogo', {Logo: '' }))
             //);
+    }
+
+    getAllHazardData(): Observable<any> {
+        return {};
     }
 
 

@@ -1,5 +1,7 @@
 ﻿import { Component ,OnInit} from '@angular/core';
-import { DashboardHazardService,ClientLogo} from './dashboard.hazard.service';
+import { DashboardHazardService, ClientLogo } from './dashboard.hazard.service';
+import { MobxAngularModule } from 'mobx-angular';
+
 @Component({
     selector: 'pi-dashboard',
     templateUrl: './dashboard.component.html',
@@ -13,6 +15,9 @@ export class DashBoardComponent implements OnInit{
 
     }
     ngOnInit() {
-        this.dashboardHazardService.getClientLogo().subscribe(clientLogo => { this.companyLogo.Logo = 'data:image/png;base64,' + clientLogo.Logo });
+        this.dashboardHazardService.getClientLogo().subscribe(
+            clientLogo => {
+                this.companyLogo.Logo = 'data:image/png;base64,' + clientLogo.Logo
+            });
     }
 }
