@@ -7,7 +7,18 @@ export class Store {
         
     }
 
+    @observable
+    HazardData: {
+        PerilTotlimProfileLocs: number,
+        PortfolioDate: string,
+        toDay: Date,
+        HighThresholds:number,
+        MedThresholds: number,
+        EstLossDonutLegend:Array<any>,
+        LocAtRiskDonutLegend: Array<any>,
 
+
+    }
 
     @action
     loadAllHazardData():any {

@@ -19,22 +19,25 @@ const httpOptions = {
 @Injectable()
 export class DashboardHazardService {
     serviceUrl: string;
+    clientId: string;
     private handleError: HandleError;
     constructor(private http: HttpClient, httpErrorHandler: HttpErrorHandler, configService: ConfigService) {
         this.handleError = httpErrorHandler.createHandleError('NavBarService');
         this.serviceUrl = configService.getServiceUrl();
+        this.clientId = configService.clientId.toString();
 
     }
 
     getClientLogo(): Observable<ClientLogo> {
-        return this.http.get<ClientLogo>(this.serviceUrl, { params: new HttpParams().set('resource', '/clientlogo').set('method', 'GET').set('id', '2') })      
-            //.pipe(
-            //catchError(this.handleError('getClientLogo', {Logo: '' }))
-            //);
+        return this.http.get<ClientLogo>(this.serviceUrl, { params: new HttpParams().set('resource', '/clientlogo').set('method', 'GET').set('id', this.clientId.toString()) })
+        //.pipe(
+        //catchError(this.handleError('getClientLogo', {Logo: '' }))
+        //);
     }
 
     getAllHazardData(): Observable<any> {
-        return {};
+        return this.http.get<any>(this.serviceUrl, {
+            params: new HttpParams({ fromObject: { resource: '/HazardSummary', method: 'GET', id: this.clientId } })});
     }
 
 
