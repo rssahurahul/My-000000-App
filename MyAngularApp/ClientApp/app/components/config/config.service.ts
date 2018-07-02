@@ -12,6 +12,7 @@ export interface config {
     resourceUrl:string
 }
 
+
 @Injectable()
 export class ConfigService{
     location: Location;

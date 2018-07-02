@@ -1,4 +1,8 @@
-﻿.title-bar-text {
+﻿input{
+    color:#070000;
+}
+
+.title-bar-text {
     font-size: 15px !important;
 }
 

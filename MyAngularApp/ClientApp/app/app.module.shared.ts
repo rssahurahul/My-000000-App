@@ -1,5 +1,5 @@
-import { NgModule } from '@angular/core';
-import { CommonModule, Location, LocationStrategy, PathLocationStrategy } from '@angular/common';
+import { NgModule,LOCALE_ID } from '@angular/core';
+import { CommonModule, Location, LocationStrategy, PathLocationStrategy,PercentPipe,CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 //import { HttpClient,HttpHandler } from '@angular/common/http';
@@ -14,6 +14,8 @@ import { Store } from './components/dashboard/Store';
 import { AppComponent } from './components/app/app.component';
 import { NavBarComponent } from './components/navbar/navbar.component';
 import { DashBoardComponent } from './components/dashboard/dashboard.component';
+import { DashboardHazardService } from './components/dashboard/dashboard.hazard.service';
+
 //import { DashboardHttpInterceptor } from './dashboard.http.interceptor';
 
 @NgModule({
@@ -37,7 +39,7 @@ import { DashBoardComponent } from './components/dashboard/dashboard.component';
             { path: '**', redirectTo: 'app' }
         ])
     ],
-    providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }, HttpErrorHandler, MessageService, ConfigService,Store]
+    providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }, HttpErrorHandler, MessageService, ConfigService, Store, DashboardHazardService, {provide:LOCALE_ID,useValue:'en'}, PercentPipe, CurrencyPipe]
 })
 export class AppModuleShared {
 }

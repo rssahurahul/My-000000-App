@@ -31,6 +31,7 @@
     <None Remove="ClientApp\app\components\http-error-handler.service.ts" />
     <None Remove="ClientApp\app\components\message.service.ts" />
     <None Remove="ClientApp\app\components\navbar\navbar.service.ts" />
+    <None Remove="ClientApp\app\pipes\RawNumeric.ts" />
     <None Remove="ClientApp\app\service\config.service.ts" />
     <None Remove="ClientApp\app\service\hazard.service.ts" />
     <None Remove="ClientApp\app\Store.ts" />
@@ -45,6 +46,7 @@
     <TypeScriptCompile Include="ClientApp\app\components\http-error-handler.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\message.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\navbar\navbar.service.ts" />
+    <TypeScriptCompile Include="ClientApp\app\pipes\RawNumeric.ts" />
     <TypeScriptCompile Include="ClientApp\app\service\hazard.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\config\config.service.ts" />
     <TypeScriptCompile Include="ClientApp\app\components\dashboard\Store.ts" />

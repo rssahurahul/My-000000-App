@@ -1,4 +1,4 @@
-﻿<div class="container-fluid" >
+﻿<div class="container-fluid" *mobxAutorun="{ dontDetach: true }">
 
     <div id="content">
         <div class="container dashboard-bg">
@@ -35,7 +35,7 @@
                                         <div class="col-xs-12 col-sm-12 col-md-6 col-md-offset-6">
 
                                             <div id="dmgfact-tool-window" class="dmgfact-tool-window">
-                                                <div style="display:none;" id="dmgfactToolCont" class="col-md-12 col-sm-12 col-xs-12 dmgfact-tool-cont">
+                                                <div style="display:block;" id="dmgfactToolCont" class="col-md-12 col-sm-12 col-xs-12 dmgfact-tool-cont">
                                                     <div class="margin-none border-none innerLR">
                                                         <div class="margin-top10"><p>Configure estimated loss thresholds.</p></div>
                                                         <div class="clearfix"></div>
@@ -43,7 +43,7 @@
                                                         <div>
                                                             <div class="col-md-5 ">
                                                                 <div class="col-md-4 thresholdhigh"><h4 class="no-margin">HIGH</h4></div>
-                                                                <div class="col-md-7 thresholdhighbox padding-none"><span class="red_ver"></span><input type="text" data-bind="value:adminToolHighThresholds" style="width:90%; padding-left: 5px" /></div>
+                                                                <div class="col-md-7 thresholdhighbox padding-none"><span class="red_ver"></span><input type="text" [(ngModel)] ="store.CHighThresholds" style="width:90%; padding-left: 5px" /></div>
                                                             </div>
                                                             <div class="col-md-5">
                                                                 <div class="col-md-4 thresholdhigh"><h4 class="no-margin">MED</h4></div>
@@ -150,7 +150,7 @@
                                                                             <td class="text-center" data-bind="text:Hail_1_TotlimFormatted">$80m</td>
                                                                             <td class="text-center"><span data-bind="text:Hail_1_EstLossFormatted,css:Hail_1_alertClass">0</span></td>
                                                                             <td class="text-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Hail_1_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
-                                                                            <td class="text-center padding-tb-3"><input type="text" data-bind="value:Hail_1" class="width65 text-center" /></td>
+                                                                            <td class="text-center padding-tb-3"><input type="text" [(ngModel)]="store.hazardData.Hail_1_Factor" class="width65 text-center" /></td>
                                                                         </tr>
 
                                                                     </table>
