@@ -5,17 +5,17 @@ import {  getLocaleId, getLocaleNumberSymbol, NumberSymbol,DecimalPipe } from '@
 export class RawNumericPipe implements PipeTransform {
 
     constructor(private decimalpipe:DecimalPipe) {
-        this.locale = getLocaleId(LOCALE_ID.toString());
+        this.locale = 'en-US';//getLocaleId(LOCALE_ID.toString());
         //this.currencySymbol = getLocaleCurrencySymbol(this.locale) || '';
-        this.numFormatSymbol = getLocaleNumberSymbol(this.locale,NumberSymbol.Group);
+        this.numFormatSymbol = getLocaleNumberSymbol(this.locale,NumberSymbol.Decimal);
     }
     locale: string;
     //currencySymbol: string;
     numFormatSymbol: string;
     //percentSymbol: string;
-    transform(value: string, args: string[]): any {
+    transform(value: string, args: string[]=[]): any {
         if (!value) return value;
-        let regx =new RegExp('^[0-9'+this.numFormatSymbol+']','g');
-        return this.decimalpipe.transform(value.replace(regx, ''),undefined,this.locale);
+        let regx =new RegExp('[^0-9'+this.numFormatSymbol+']','g');
+        return parseFloat(value.replace(regx, ''));
     }
 }

@@ -7,11 +7,15 @@ import { PercentPipe, CurrencyPipe, getLocaleCurrencySymbol, getLocaleId } from 
 export class Store {
     constructor(private percentPipe: PercentPipe, private currencyPipe: CurrencyPipe, private dashboardHazardService: DashboardHazardService) {
         // this.percentPipe = new PercentPipe('en-US');
-        this.currency = getLocaleCurrencySymbol(LOCALE_ID.toString()) || '';
+        //this.currency = getLocaleCurrencySymbol(LOCALE_ID.toString()) || '';
+        //this.locale = getLocaleId(LOCALE_ID.toString());
+
+        this.currency = '$';
+        this.locale ='en-US';
     }
 
     //culture: string = getLocaleId(LOCALE_ID.toString());
-    locale: string = getLocaleId(LOCALE_ID.toString());
+    locale: string;
     currency: string;
 
     @observable
@@ -193,13 +197,14 @@ export class Store {
     loadAllHazardData(): any {
         this.dashboardHazardService.getAllHazardData().subscribe(data => {
             this.hazardData.Hail_1_Factor = data.PerilExposure.Hail_1_Factor;
-            this.hazardData.HighThresholds = data.PerilExposure.HighThresholds;
+            this.hazardData.HighThresholds = data.HighThresholds;
+            this.hazardData.MedThresholds = data.MedThresholds;
         })
     }
 
     @computed
     get CHighThresholds(): any {
-        return this.currencyPipe.transform(this.hazardData.HighThresholds, this.currency, true, this.culture);
+        return this.currencyPipe.transform(this.hazardData.HighThresholds, this.currency, true, 'en-US');
     }
     set CHighThresholds(value) {
         this.hazardData.HighThresholds = value.replace(/[$,%]/g, "");

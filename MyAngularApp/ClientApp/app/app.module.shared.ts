@@ -1,5 +1,6 @@
 import { NgModule,LOCALE_ID } from '@angular/core';
-import { CommonModule, Location, LocationStrategy, PathLocationStrategy,PercentPipe,CurrencyPipe } from '@angular/common';
+import { CommonModule, registerLocaleData, Location, LocationStrategy, PathLocationStrategy, PercentPipe, CurrencyPipe,DecimalPipe } from '@angular/common';
+//import localeUs from '@angular/common/locales';
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 //import { HttpClient,HttpHandler } from '@angular/common/http';
@@ -15,6 +16,7 @@ import { AppComponent } from './components/app/app.component';
 import { NavBarComponent } from './components/navbar/navbar.component';
 import { DashBoardComponent } from './components/dashboard/dashboard.component';
 import { DashboardHazardService } from './components/dashboard/dashboard.hazard.service';
+import { RawNumericPipe } from './pipes/RawNumeric';
 
 //import { DashboardHttpInterceptor } from './dashboard.http.interceptor';
 
@@ -39,7 +41,7 @@ import { DashboardHazardService } from './components/dashboard/dashboard.hazard.
             { path: '**', redirectTo: 'app' }
         ])
     ],
-    providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }, HttpErrorHandler, MessageService, ConfigService, Store, DashboardHazardService, {provide:LOCALE_ID,useValue:'en'}, PercentPipe, CurrencyPipe]
+    providers: [Location, { provide: LocationStrategy, useClass: PathLocationStrategy }, HttpErrorHandler, MessageService, ConfigService, Store, DashboardHazardService, {provide:LOCALE_ID,useValue:'en'}, PercentPipe, CurrencyPipe,RawNumericPipe,DecimalPipe]
 })
 export class AppModuleShared {
 }
