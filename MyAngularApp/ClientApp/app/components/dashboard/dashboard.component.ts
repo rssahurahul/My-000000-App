@@ -3,6 +3,7 @@ import { DashboardHazardService, ClientLogo } from './dashboard.hazard.service';
 import { MobxAngularModule } from 'mobx-angular';
 import { Store } from './Store';
 import { RawNumericPipe } from '../../pipes/RawNumeric';
+import {IMyDpOptions } from 'mydatepicker';
 @Component({
     selector: 'pi-dashboard',
     templateUrl: './dashboard.component.html',
@@ -13,6 +14,10 @@ import { RawNumericPipe } from '../../pipes/RawNumeric';
 export class DashBoardComponent implements OnInit {
     companyLogo: ClientLogo = { Logo: '' };
     store: Store;
+    public myDatePickerOptions: IMyDpOptions = {
+        dateFormat: 'mm/dd/yyyy',
+        showInputField:false
+    };
     constructor(private rawNumPipe:RawNumericPipe,private dashboardHazardService: DashboardHazardService, dataStore: Store) {
         this.store = dataStore;
     }

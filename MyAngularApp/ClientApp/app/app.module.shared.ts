@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 //import { HttpClient,HttpHandler } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { MobxAngularModule } from 'mobx-angular';
+import { MyDatePickerModule } from 'mydatepicker';
 
 import { HttpErrorHandler, HandleError } from '../app/components/http-error-handler.service';
 import { MessageService } from '../app/components/message.service';
@@ -31,6 +32,7 @@ import { RawNumericPipe } from './pipes/RawNumeric';
         CommonModule,
         HttpClientModule,
         MobxAngularModule,
+        MyDatePickerModule,
         //HttpClient,
         FormsModule,
         RouterModule.forRoot([

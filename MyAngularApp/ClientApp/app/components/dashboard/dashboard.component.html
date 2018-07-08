@@ -469,18 +469,20 @@
                                             </h3>
                                         </div>
                                         <div class="col-md-4 col-xs-4 text-right">
-                                            <a href="#" class="calender-icon" id="datePicker">
+                                            <!--<a href="#" class="calender-icon" id="datePicker">
                                                 <img src="../../assets/images/calender.png" />
 
-                                            </a>
+                                            </a>-->
+                                            <my-date-picker name="mydate" [options]="myDatePickerOptions"
+                                                            [(ngModel)]="model" required></my-date-picker>
 
-                                           
 
                                         </div>
                                         <br />
-                                        <div id="dvSelectedDate" class="dvSelectedDate hidden">
+                                        
+                                        <!--<div id="dvSelectedDate" class="dvSelectedDate hidden">
                                             <input type="text" id="txtDatePicker" class="invisible" />
-                                        </div>
+                                        </div>-->
                                         <div class="clearfix"></div>
                                     </div>
                                 </div>
