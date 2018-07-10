@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 //import { HttpClient,HttpHandler } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { MobxAngularModule } from 'mobx-angular';
+import * as jQuery from 'jquery';
 import { MyDatePickerModule } from 'mydatepicker';
 
 import { HttpErrorHandler, HandleError } from '../app/components/http-error-handler.service';
@@ -35,6 +36,7 @@ import { RawNumericPipe } from './pipes/RawNumeric';
         MyDatePickerModule,
         //HttpClient,
         FormsModule,
+
         RouterModule.forRoot([
             { path: '', redirectTo: 'app', pathMatch: 'full' },
             //{ path: 'home', component: HomeComponent },

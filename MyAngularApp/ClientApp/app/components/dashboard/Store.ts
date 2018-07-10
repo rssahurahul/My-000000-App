@@ -2,7 +2,8 @@
 import { observable, action, computed } from 'mobx';
 import { DashboardHazardService } from './dashboard.hazard.service';
 import { PercentPipe, CurrencyPipe, getLocaleCurrencySymbol, getLocaleId } from '@angular/common';
-import * as $ from 'jquery';
+
+//declare var jQuery: any;
 
 @Injectable()
 export class Store {
@@ -14,12 +15,12 @@ export class Store {
         this.currency = '$';
         this.locale = 'en-US';
 
-        this.PortfolioDate="";
-        this.TotalEvents=0;
-        this.TotalLocation=0;
-        this.lastDateObj=0;
-        this.daytime="";
-        this.lastDayTime="";
+        this.PortfolioDate = "";
+        this.TotalEvents = 0;
+        this.TotalLocation = 0;
+        this.lastDateObj = 0;
+        this.daytime = "";
+        this.lastDayTime = "";
     }
 
     //culture: string = getLocaleId(LOCALE_ID.toString());
@@ -46,7 +47,7 @@ export class Store {
 
     getLastCurrentDate(endDateUTC: Date, selectedDateUTC: Date, argDayTime: string) {
         var defaultDate = new Date();
-        var dateObj = { date: defaultDate, endDate: defaultDate, actualEndDate: defaultDate, selectedDateUTC: selectedDateUTC, endDateUTC: endDateUTC, dayTime: '11 pm', lastDateIsChanged: false, lastCalendarDate:"" };
+        var dateObj = { date: defaultDate, endDate: defaultDate, actualEndDate: defaultDate, selectedDateUTC: selectedDateUTC, endDateUTC: endDateUTC, dayTime: '11 pm', lastDateIsChanged: false, lastCalendarDate: "" };
 
         this.hazardData.lastDayTime = argDayTime.toLocaleLowerCase();
         var _selectedDate = new Date(selectedDateUTC);
@@ -89,8 +90,8 @@ export class Store {
         else {
             dateObj.lastCalendarDate = (dateObj.date.getMonth() + 1) + '/' + dateObj.date.getDate() + '/' + dateObj.date.getFullYear();
         }
-        
-        $.extend(true, this.lastDateObj, dateObj);
+        Object.assign(this.lastDateObj, dateObj);
+        //jQuery.extend(true, this.lastDateObj, dateObj);
         return this.lastDateObj;
     }
 
