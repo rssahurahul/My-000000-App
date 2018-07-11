@@ -13,21 +13,21 @@
 
                                     <div class="portfolio-heading-left">
                                         <div class="pull-left innerLR margin-top-8 title-bar-text">
-                                            PORTFOLIO: as of <span data-bind="text:PortfolioDate"></span>
+                                            PORTFOLIO: as of <span>{{store.PortfolioDate}}</span>
                                         </div>
                                     </div>
                                     <div class="portfolio-heading-right">
                                         <div class="pull-left innerLR margin-top-8 title-bar-text">
                                             TIL:
                                         </div>
-                                        <div class="pull-left title-bar-value innerLR" data-bind="text:TotalInsuredLimitFormatted">
-
+                                        <div class="pull-left title-bar-value innerLR" data-text="TotalInsuredLimit">
+                                            {{store.TotalInsuredLimit|currency:'USD':'symbol-narrow':'1.0-0'}}
                                         </div>
                                         <div class="pull-left innerLR margin-top-8 title-bar-text">
                                             Locations:
                                         </div>
-                                        <div class="pull-left title-bar-value innerLR" data-bind="text: TotalLocationsFormatted">
-
+                                        <div class="pull-left title-bar-value innerLR">
+                                            {{store.TotalLocation|number}}
                                         </div>
 
                                     </div>
@@ -113,7 +113,7 @@
                                                                             <td class="text-center" data-bind="text:Hail_5_LocationCount">0</td>
                                                                             <td class="text-center" data-bind="text:Hail_5_TotlimFormatted">$80m</td>
                                                                             <td class="text-center"><span data-bind="text:Hail_5_EstLossFormatted,css:Hail_5_alertClass">0</span></td>
-                                                                            <td class="text-center-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Hail_5_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            
                                                                             <td class="text-center padding-tb-3"><input type="text" data-bind="value:Hail_5" class="width65 text-center" /></td>
                                                                         </tr>
                                                                         <tr>
@@ -122,7 +122,7 @@
                                                                             <td class="text-center" data-bind="text:Hail_4_LocationCount">0</td>
                                                                             <td class="text-center" data-bind="text:Hail_4_TotlimFormatted">$80m</td>
                                                                             <td class="text-center"><span data-bind="text:Hail_4_EstLossFormatted,css:Hail_4_alertClass">0</span></td>
-                                                                            <td class="text-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Hail_4_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            
                                                                             <td class="text-center padding-tb-3"><input type="text" data-bind="value:Hail_4" class="width65 text-center" /></td>
                                                                         </tr>
                                                                         <tr>
@@ -131,7 +131,7 @@
                                                                             <td class="text-center" data-bind="text:Hail_3_LocationCount">0</td>
                                                                             <td class="text-center" data-bind="text:Hail_3_TotlimFormatted">$80m</td>
                                                                             <td class="text-center"><span data-bind="text:Hail_3_EstLossFormatted,css:Hail_3_alertClass">0</span></td>
-                                                                            <td class="text-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Hail_3_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            
                                                                             <td class="text-center padding-tb-3"><input type="text" data-bind="value:Hail_3" class="width65 text-center" /></td>
                                                                         </tr>
                                                                         <tr>
@@ -140,7 +140,7 @@
                                                                             <td class="text-center" data-bind="text:Hail_2_LocationCount">0</td>
                                                                             <td class="text-center" data-bind="text:Hail_2_TotlimFormatted">$80m</td>
                                                                             <td class="text-center"><span data-bind="text:Hail_2_EstLossFormatted,css:Hail_2_alertClass"></span></td>
-                                                                            <td class="text-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Hail_2_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            
                                                                             <td class="text-center padding-tb-3"><input type="text" data-bind="value:Hail_2" class="width65 text-center" /></td>
                                                                         </tr>
                                                                         <tr>
@@ -149,7 +149,7 @@
                                                                             <td class="text-center" data-bind="text:Hail_1_LocationCount">0</td>
                                                                             <td class="text-center" data-bind="text:Hail_1_TotlimFormatted">$80m</td>
                                                                             <td class="text-center"><span data-bind="text:Hail_1_EstLossFormatted,css:Hail_1_alertClass">0</span></td>
-                                                                            <td class="text-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Hail_1_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            
                                                                             <td class="text-center padding-tb-3"><input type="text" [(ngModel)]="store.hazardData.Hail_1_Factor" class="width65 text-center" /></td>
                                                                         </tr>
 
@@ -177,7 +177,7 @@
                                                                             <td class="text-center" data-bind="text:Wind_100_LocationCount">0</td>
                                                                             <td class="text-center" data-bind="text:Wind_100_TotlimFormatted">$80m</td>
                                                                             <td class="text-center"><span data-bind="text:Wind_100_EstLossFormatted,css:Wind_100_alertClass">0</span></td>
-                                                                            <td class="text-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Wind_100_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            
                                                                             <td class="text-center padding-tb-3"><input type="text" data-bind="value:Wind_100" class="width65 text-center" /></td>
                                                                         </tr>
                                                                         <tr>
@@ -186,7 +186,7 @@
                                                                             <td class="text-center" data-bind="text:Wind_75_LocationCount">0</td>
                                                                             <td class="text-center" data-bind="text:Wind_75_TotlimFormatted">$80m</td>
                                                                             <td class="text-center"><span data-bind="text:Wind_75_EstLossFormatted,css:Wind_75_alertClass">0</span></td>
-                                                                            <td class="text-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Wind_75_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            
                                                                             <td class="text-center padding-tb-3"><input type="text" data-bind="value:Wind_75" class="width65 text-center" /></td>
                                                                         </tr>
                                                                         <tr>
@@ -195,7 +195,7 @@
                                                                             <td class="text-center" data-bind="text:Wind_60_LocationCount">0</td>
                                                                             <td class="text-center" data-bind="text:Wind_60_TotlimFormatted">$80m</td>
                                                                             <td class="text-center"><span data-bind="text:Wind_60_EstLossFormatted,css:Wind_60_alertClass">0</span></td>
-                                                                            <td class="text-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Wind_60_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                           
                                                                             <td class="text-center padding-tb-3"><input type="text" data-bind="value:Wind_60" class="width65 text-center" /></td>
                                                                         </tr>
                                                                         <tr>
@@ -204,7 +204,7 @@
                                                                             <td class="text-center" data-bind="text:Wind_50_LocationCount">0</td>
                                                                             <td class="text-center" data-bind="text:Wind_50_TotlimFormatted">$80m</td>
                                                                             <td class="text-center"><span data-bind="text:Wind_50_EstLossFormatted,css:Wind_50_alertClass">0</span></td>
-                                                                            <td class="text-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Wind_50_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            
                                                                             <td class="text-center padding-tb-3"><input type="text" data-bind="value:Wind_50" class="width65 text-center" /></td>
                                                                         </tr>
                                                                         <tr>
@@ -213,7 +213,7 @@
                                                                             <td class="text-center" data-bind="text:Wind_0_LocationCount">0</td>
                                                                             <td class="text-center" data-bind="text:Wind_0_TotlimFormatted">$80m</td>
                                                                             <td class="text-center"><span data-bind="text:Wind_0_EstLossFormatted,css:Wind_0_alertClass">0</span></td>
-                                                                            <td class="text-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Wind_0_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                           
                                                                             <td class="text-center padding-tb-3"><input type="text" data-bind="value:Wind_0" class="width65 text-center" /></td>
                                                                         </tr>
 
@@ -242,7 +242,7 @@
                                                                             <td class="text-center" data-bind="text:TornLocationCount">0</td>
                                                                             <td class="text-center" data-bind="text:TornTotlimFormatted">$80m</td>
                                                                             <td class="text-center"><span data-bind="text:Torn_EstLossFormatted,css:TornalertClass">0</span></td>
-                                                                            <td class="text-left hidden"><input type="text" style="width:130px" data-bind="kendoSlider: {enabled: true, min: 0, max: 100,showButtons:false,tickPlacement:'none',smallStep: .001,largeStep: 0,value: Torn_Factor,dragHandleTitle: '',tooltip: { enabled: false }}" /> </td>
+                                                                            
                                                                             <td class="text-center padding-tb-3"><input type="text" data-bind="value:Torn" class="width65 text-center" /></td>
                                                                         </tr>
 

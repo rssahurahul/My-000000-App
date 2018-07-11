@@ -18,6 +18,7 @@ export class Store {
         this.PortfolioDate = "";
         this.TotalEvents = 0;
         this.TotalLocation = 0;
+        this.TotalInsuredLimit = 0;
         this.lastDateObj = 0;
         this.daytime = "";
         this.lastDayTime = "";
@@ -30,6 +31,7 @@ export class Store {
     PortfolioDate: string;
     TotalEvents: number;
     TotalLocation: number;
+    TotalInsuredLimit: number;
     lastDateObj: any = {};
     daytime: string;
     lastDayTime: string;
@@ -265,12 +267,15 @@ export class Store {
     @action
     loadAllHazardData(): any {
         this.dashboardHazardService.getAllHazardData().subscribe(data => {
+            this.PortfolioDate = data.PortfolioDate;
             this.hazardData.Hail_1_Factor = data.PerilExposure.Hail_1_Factor;
             this.hazardData.HighThresholds = data.HighThresholds;
             this.hazardData.MedThresholds = data.MedThresholds
             this.hazardData.StartDateUTC = data.DateRange["StartDateUTC"];
             this.hazardData.EndDateUTC = data.DateRange["EndDateUTC"];
             this.hazardData.SelectedDateUTC = data["Date"];
+            this.TotalLocation = data.TotalLocation;
+            this.TotalInsuredLimit = data.TotalInsuredLimit;
             this.lastDateObj = this.getLastCurrentDate(this.hazardData.EndDateUTC, this.hazardData.SelectedDateUTC, data.DateRange.LastDaytime);
             //var date = app.Dashboard.lastDateObj.date;
             //if (app.Dashboard.lastDateObj.dateChangedFrom === 'datepicker' && app.Dashboard.lastDateObj.dateFromDatepicker) {
